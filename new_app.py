@@ -32,7 +32,7 @@ def update_list(path):
 
             file_names.append(dir_con.pop(i))
             full_file_names.append(full_name)
-            print('|____ ' + full_name, end="\n\n")
+            print('|____ ' + full_name + "\n\n")
 
         count -= 1
 
@@ -49,7 +49,6 @@ ____________________
 |    DIRECTORIES: {}
 |___________________
 '''
-
 
 while dir_list != []:
     p = dir_list.pop(0)
@@ -84,22 +83,22 @@ import os
 
 for item in tekrari:
     i = 0
-	while i not in [3, 4, 5, 6]:
-		print(b.format(item[0], item[1], item[2]))
-		
-		i = int(input('CHOOSE ONE: '))
-		if i == 1:
-			os.startfile(item[1])
-		elif i == 2:
-			os.startfile(item[2])
-		elif i == 3:
-			os.remove(item[1])
-		elif i == 4:
-			os.remove(item[2])
-		elif i == 5:
-			os.remove(item[1])
-			os.remove(item[2])
-		elif i == 6:
-			break
-		elif i == 7:
-			exit()
+    while i not in [3, 4, 5, 6]:
+        print(b.format(item[0], item[1], item[2]))
+
+        i = int(input('CHOOSE ONE: '))
+        if i == 1:
+            os.startfile(item[1])
+        elif i == 2:
+            os.startfile(item[2])
+        elif i == 3:
+            os.remove(item[1])
+        elif i == 4:
+            os.remove(item[2])
+        elif i == 5:
+            os.remove(item[1])
+            os.remove(item[2])
+        elif i == 6:
+            break
+        elif i == 7:
+            exit()

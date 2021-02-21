@@ -83,10 +83,10 @@ Second: {}
 import os
 
 for item in tekrari:
-    i = 0
+	i = 0
 	while i not in [3, 4, 5, 6]:
 		print(b.format(item[0], item[1], item[2]))
-		
+
 		i = int(input('CHOOSE ONE: '))
 		if i == 1:
 			os.startfile(item[1])
