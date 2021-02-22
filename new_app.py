@@ -36,11 +36,36 @@ def update_list(path):
 
         count -= 1
 
+#############################################
+from tkinter import *
 
+win = Tk()
+win.title("Find Duplicate Files | M.E_Kazemi")
+win.geometry("800x500")
+win.configure(background="#333333")
+
+info = Label(win, text="This program shows you the same file names in a directory and you can decide for them", bg="#333", fg="#fff")
+info.grid(row=0, column=2)
+
+lpath = Label(win, text="Enter Path", bg="#333", fg="#fff")
+lpath.grid(column=0, row=1)
+
+path = StringVar()
+path_entry = Entry(win, width=70, textvariable=path)
+path_entry.grid(row=1, column=2)
+
+run_button = Button(win, text="CHECK", bg="yellow", fg='#333', width=10)
+run_button.grid(row=1, column=3, ipady=2)
+
+
+win.mainloop()
+exit()
+#############################################
+path = path.get()
 dir_count = 0
-path = os.getcwd()
 dir_con = get_list_content(path)
 update_list(path)
+
 a = '''
 ____________________
 |
@@ -60,7 +85,6 @@ while dir_list != []:
     update_list(p)
     dir_count += 1
 
-# print(tekrari)
 for k in range(len(tekrari)):
     strr = '======\n' + tekrari[k][0] + '\n\t' + tekrari[k][1] + '\n\t' + tekrari[k][2] + '\n==='
     print(strr)
