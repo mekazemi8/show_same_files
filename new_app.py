@@ -38,8 +38,10 @@ def update_list(path):
 
 
 def run():
-    global tekrari_list, index, ff, sf
+    global tekrari_list, index, ff, sf, fn
     global p
+
+    Label(win, text="Please Wait...\n Program is Running...", bg='#333', fg='#fff').grid(row=4, column=2)
 
     path = p.get()
 
@@ -47,29 +49,11 @@ def run():
     dir_con = get_list_content(path)
     update_list(path)
 
-    a = '''
-    ____________________
-    |
-    |    FILES:       {}
-    |    REPEATED:    {}
-    |    DIRECTORIES: {}
-    |___________________
-    '''
-
     while dir_list != []:
         p = dir_list.pop(0)
-
-        print(p)
-        print(a.format(len(file_names), len(tekrari), dir_count))
-
         get_list_content(p)
         update_list(p)
         dir_count += 1
-
-    # Don't need
-    # for k in range(len(tekrari)):
-    #     strr = '======\n' + tekrari[k][0] + '\n\t' + tekrari[k][1] + '\n\t' + tekrari[k][2] + '\n==='
-    #     print(strr)
 
     clabel.configure(text='Files:    {}'.format(len(file_names)))
     rlabel.configure(text='Repeated: {}'.format(len(tekrari)))
@@ -106,74 +90,53 @@ def run():
     db1 = Button(win,text="DELETE", bg="#bf0013", fg='white', width=10, command=delete_first)
     db1.grid(row=6, column=4)
 
-    rb2 = Button(win,text="RUN", bg="#ff3be5", fg='#333', width=10, command=run_second)
+    rb2 = Button(win,text="RUN", bg="#ff3be5", fg='#fff', width=10, command=run_second)
     rb2.grid(row=7, column=3, pady=5)
 
     db2 = Button(win,text="DELETE", bg="#bf0013", fg='white', width=10, command=delete_second)
     db2.grid(row=7, column=4)
 
-    next = Button(win, text="Next", bg="#bf0013", fg='white', width=10, command=go_next).grid(row=8, column=3, pady=10)
+    next = Button(win, text="Next", bg="#de0454", fg='white', width=10, command=go_next).grid(row=8, column=3, pady=10)
 
-    b = '''
-    Name: 	{}
-    First:  {}
-    Second: {}
-    --
-    1. See FIRST file   2. See SECOND file
-    3. DELETE First     4. DELETE Second
-              5. DELETE BOTH
-    6. Go Next          7. EXIT
-    '''
-    # import os
-
-    # for item in tekrari:
-    #     i = 0
-    #     while i not in [3, 4, 5, 6]:
-    #         print(b.format(item[0], item[1], item[2]))
-
-    #         i = int(input('CHOOSE ONE: '))
-    #         if i == 1:
-    #             os.startfile(item[1])
-    #         elif i == 2:
-    #             os.startfile(item[2])
-    #         elif i == 3:
-    #             os.remove(item[1])
-    #         elif i == 4:
-    #             os.remove(item[2])
-    #         elif i == 5:
-    #             os.remove(item[1])
-    #             os.remove(item[2])
-    #         elif i == 6:
-    #             break
-    #         elif i == 7:
-    #             exit()
 def CurSelet(evt):
-    global tekrari_list
-    value=str(tekrari_list.get(tekrari_list.curselection()))
-    print(value)
+    global tekrari_list, index
+    value = str(tekrari_list.get(tekrari_list.curselection()))
+    index = int(value.split(' *-* ', 1)[0])
+    update()
 
 def run_first():
     global ff
-    print(ff['text'])
+    os.startfile(ff['text'])
 
 def delete_first():
-    pass
+    global ff
+    os.remove(ff['text'])
 
 def run_second():
-    pass
+    global sf
+    os.startfile(sf['text'])
 
 def delete_second():
-    pass
+    global sf
+    os.remove(sf['text'])
 
 def go_next():
-    pass
+    global index
+    index += 1
+    update()
+
+def update():
+    global index, tekrari
+    fn.configure(text=tekrari[index][0])
+    ff.configure(text=tekrari[index][1])
+    sf.configure(text=tekrari[index][2])
 #############################################
 from tkinter import *
 index = 0
 
 win = Tk()
 win.title("Find Duplicate Files | M.E_Kazemi")
-win.geometry("800x500")
+win.geometry("800x330")
 win.configure(background="#333333")
 
 info = Label(win, text="This program shows you the same file names\nin a directory and you can decide for them", bg="#333", fg="#fff")
