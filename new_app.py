@@ -32,13 +32,12 @@ def update_list(path):
 
             file_names.append(dir_con.pop(i))
             full_file_names.append(full_name)
-            print('|____ ' + full_name + "\n\n")
 
         count -= 1
 
 
 def run():
-    global tekrari_list, index, ff, sf, fn
+    global tekrari_list, index, ff, sf, fn, ind
     global p
 
     Label(win, text="Please Wait...\n Program is Running...", bg='#333', fg='#fff').grid(row=4, column=2)
@@ -72,6 +71,9 @@ def run():
         tekrari_list.insert(END, txt)
         c += 1
     
+    ind = Label(win, text="index => "+str(index)+"/"+str(len(tekrari)-1), bg='#333', fg='#fff')
+    ind.grid(row=4, column=4)
+
     Label(win, text="File Name", bg='#333', fg='#fff').grid(row=5, column=0, pady=10)
     fn = Label(win, text=tekrari[index][0], bg='#333', fg='#fff')
     fn.grid(row=5, column=2)
@@ -130,7 +132,10 @@ def update():
     fn.configure(text=tekrari[index][0])
     ff.configure(text=tekrari[index][1])
     sf.configure(text=tekrari[index][2])
+    ind.configure(text="index => "+str(index)+"/"+str(len(tekrari)-1))
+
 #############################################
+
 from tkinter import *
 index = 0
 
@@ -161,8 +166,6 @@ rlabel.grid(row=1, column=4)
 
 dlabel = Label(win, text="", bg='#333', fg='#fff', font="consolas")
 dlabel.grid(row=2, column=4)
-
-
 
 win.mainloop()
 exit()
