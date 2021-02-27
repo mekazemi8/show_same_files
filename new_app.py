@@ -38,7 +38,9 @@ def update_list(path):
 
 
 def run():
+    global tekrari_list, index, ff, sf
     global p
+
     path = p.get()
 
     dir_count = 0
@@ -74,12 +76,43 @@ def run():
     dlabel.configure(text='Dirs:     {}'.format(str(dir_count)))
 
     # Show List Box
-    tekrari_list = Listbox(win, width=50)
+    rep = Label(win, text="Repeated\nFiles", bg='#333', fg='#fff').grid(row=4, column=0)
+
+    tekrari_list = Listbox(win, width=80, height=5 ,bg='#545454', fg='#fff')
+    tekrari_list.bind('<<ListboxSelect>>',CurSelet)
     tekrari_list.grid(row=4, column=2)
 
-    print('COUNT OF FILES:            ' + str(len(file_names)))
-    print('|---> OF REPEATED FILES:   ' + str(len(tekrari)))
-    print('|---> OF DIRECTORIES:      ' + str(dir_count))
+    c = 0
+    for i in tekrari:
+        txt = str(c) +' *-* ' + i[0] + ' *-* ' + i[1] + ' *-* ' + i[2]
+        tekrari_list.insert(END, txt)
+        c += 1
+    
+    Label(win, text="File Name", bg='#333', fg='#fff').grid(row=5, column=0, pady=10)
+    fn = Label(win, text=tekrari[index][0], bg='#333', fg='#fff')
+    fn.grid(row=5, column=2)
+
+    Label(win, text="First File", bg='#333', fg='#fff').grid(row=6, column=0)
+    ff = Label(win, text=tekrari[index][1], bg='#333', fg='#3bdeff')
+    ff.grid(row=6, column=2)
+
+    Label(win, text="Second File", bg='#333', fg='#fff').grid(row=7, column=0)
+    sf = Label(win, text=tekrari[index][2], bg='#333', fg='#ff3be5')
+    sf.grid(row=7, column=2)
+
+    rb1 = Button(win,text="RUN", bg="#3bdeff", fg='#333', width=10, command=run_first)
+    rb1.grid(row=6, column=3)
+
+    db1 = Button(win,text="DELETE", bg="#bf0013", fg='white', width=10, command=delete_first)
+    db1.grid(row=6, column=4)
+
+    rb2 = Button(win,text="RUN", bg="#ff3be5", fg='#333', width=10, command=run_second)
+    rb2.grid(row=7, column=3, pady=5)
+
+    db2 = Button(win,text="DELETE", bg="#bf0013", fg='white', width=10, command=delete_second)
+    db2.grid(row=7, column=4)
+
+    next = Button(win, text="Next", bg="#bf0013", fg='white', width=10, command=go_next).grid(row=8, column=3, pady=10)
 
     b = '''
     Name: 	{}
@@ -114,11 +147,29 @@ def run():
     #             break
     #         elif i == 7:
     #             exit()
+def CurSelet(evt):
+    global tekrari_list
+    value=str(tekrari_list.get(tekrari_list.curselection()))
+    print(value)
 
+def run_first():
+    global ff
+    print(ff['text'])
 
+def delete_first():
+    pass
 
+def run_second():
+    pass
+
+def delete_second():
+    pass
+
+def go_next():
+    pass
 #############################################
 from tkinter import *
+index = 0
 
 win = Tk()
 win.title("Find Duplicate Files | M.E_Kazemi")
@@ -128,11 +179,11 @@ win.configure(background="#333333")
 info = Label(win, text="This program shows you the same file names\nin a directory and you can decide for them", bg="#333", fg="#fff")
 info.grid(row=0, column=2)
 
-lpath = Label(win, text="Enter Path", bg="#333", fg="#fff")
+lpath = Label(win, text="Enter Path   ", bg="#333", fg="#fff")
 lpath.grid(column=0, row=1)
 
 p = StringVar()
-path_entry = Entry(win, width=50, textvariable=p)
+path_entry = Entry(win, width=80, textvariable=p)
 path_entry.grid(row=1, column=2)
 
 run_button = Button(win, text="CHECK", bg="yellow", fg='#333', width=10, command=run)
