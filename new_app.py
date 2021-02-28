@@ -1,3 +1,6 @@
+#Made with M.E_Kazemi
+#This app show you same Files in a directory
+
 import os
 
 full_file_names = []
