@@ -1,3 +1,8 @@
+#Made with M.E_Kazemi
+#This app show you same Files in a directory
+# You should put this app in that directory and run it
+# it will show you all the same file names and ask you about them
+
 import os
 
 full_file_names = []
